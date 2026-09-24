@@ -59,13 +59,13 @@ Repeated references within the same currency produce a `duplicate` group before 
 Install the .NET 10 SDK. Core tests do not require PostgreSQL:
 
 ```sh
-dotnet test tests/Mutabakat.Core.Tests
+dotnet test tests/LedgerMatch.Core.Tests
 ```
 
 API tests require the running local PostgreSQL instance and permission to create an isolated test database/schema:
 
 ```sh
-RECON_TEST_DB='Host=localhost;Port=55439;Database=mutabakat;Username=mutabakat;Password=local-demo-only' dotnet test tests/Mutabakat.Api.Tests
+RECON_TEST_DB='Host=localhost;Port=55439;Database=ledgermatch;Username=ledgermatch;Password=local-demo-only' dotnet test tests/LedgerMatch.Api.Tests
 ```
 
 ## Limits
@@ -80,4 +80,4 @@ Start with `INV-101` in `samples/provider.csv`: change its amount from `12400` t
 
 ## Local development
 
-Start only the database with `docker compose up -d db`, set `ConnectionStrings__Database` to the same local connection shown above, and run `dotnet run --project src/Mutabakat.Api --urls http://localhost:5087` (stop the Compose API first if it is running). Database migrations run on startup. To add a schema change, use `dotnet tool restore` and `dotnet ef migrations add <Name> --project src/Mutabakat.Api`.
+Start only the database with `docker compose up -d db`, set `ConnectionStrings__Database` to the same local connection shown above, and run `dotnet run --project src/LedgerMatch.Api --urls http://localhost:5087` (stop the Compose API first if it is running). Database migrations run on startup. To add a schema change, use `dotnet tool restore` and `dotnet ef migrations add <Name> --project src/LedgerMatch.Api`.

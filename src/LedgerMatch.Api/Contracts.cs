@@ -1,6 +1,6 @@
-using Mutabakat.Core;
+using LedgerMatch.Core;
 
-namespace Mutabakat.Api;
+namespace LedgerMatch.Api;
 
 public sealed record DatasetRequest(string? Source, IReadOnlyList<PaymentRecord?>? Records);
 public sealed record DatasetResponse(Guid Id, string Source, int RecordCount);

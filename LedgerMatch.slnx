@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LedgerMatch.Api/LedgerMatch.Api.csproj" />
+    <Project Path="src/LedgerMatch.Core/LedgerMatch.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LedgerMatch.Api.Tests/LedgerMatch.Api.Tests.csproj" />
+    <Project Path="tests/LedgerMatch.Core.Tests/LedgerMatch.Core.Tests.csproj" />
+  </Folder>
+</Solution>

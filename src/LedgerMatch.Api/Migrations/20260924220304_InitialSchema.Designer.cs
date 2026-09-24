@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Mutabakat.Api;
+using LedgerMatch.Api;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Mutabakat.Api.Migrations
+namespace LedgerMatch.Api.Migrations
 {
     [DbContext(typeof(ReconciliationDb))]
     [Migration("20260924220304_InitialSchema")]
@@ -25,7 +25,7 @@ namespace Mutabakat.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Mutabakat.Api.Dataset", b =>
+            modelBuilder.Entity("LedgerMatch.Api.Dataset", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace Mutabakat.Api.Migrations
                     b.ToTable("Datasets");
                 });
 
-            modelBuilder.Entity("Mutabakat.Api.ReconciliationRun", b =>
+            modelBuilder.Entity("LedgerMatch.Api.ReconciliationRun", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace Mutabakat.Api.Migrations
                     b.ToTable("Runs");
                 });
 
-            modelBuilder.Entity("Mutabakat.Api.StoredRecord", b =>
+            modelBuilder.Entity("LedgerMatch.Api.StoredRecord", b =>
                 {
                     b.Property<Guid>("DatasetId")
                         .HasColumnType("uuid");
@@ -115,31 +115,31 @@ namespace Mutabakat.Api.Migrations
                     b.ToTable("Records");
                 });
 
-            modelBuilder.Entity("Mutabakat.Api.ReconciliationRun", b =>
+            modelBuilder.Entity("LedgerMatch.Api.ReconciliationRun", b =>
                 {
-                    b.HasOne("Mutabakat.Api.Dataset", null)
+                    b.HasOne("LedgerMatch.Api.Dataset", null)
                         .WithMany()
                         .HasForeignKey("LeftDatasetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Mutabakat.Api.Dataset", null)
+                    b.HasOne("LedgerMatch.Api.Dataset", null)
                         .WithMany()
                         .HasForeignKey("RightDatasetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mutabakat.Api.StoredRecord", b =>
+            modelBuilder.Entity("LedgerMatch.Api.StoredRecord", b =>
                 {
-                    b.HasOne("Mutabakat.Api.Dataset", null)
+                    b.HasOne("LedgerMatch.Api.Dataset", null)
                         .WithMany("Records")
                         .HasForeignKey("DatasetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mutabakat.Api.Dataset", b =>
+            modelBuilder.Entity("LedgerMatch.Api.Dataset", b =>
                 {
                     b.Navigation("Records");
                 });

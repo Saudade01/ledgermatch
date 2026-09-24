@@ -12,29 +12,29 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: mutabakat
+          POSTGRES_USER: ledgermatch
           POSTGRES_PASSWORD: local-demo-only
-          POSTGRES_DB: mutabakat
+          POSTGRES_DB: ledgermatch
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U mutabakat -d mutabakat"
+          --health-cmd "pg_isready -U ledgermatch -d ledgermatch"
           --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      RECON_TEST_DB: Host=localhost;Port=5432;Database=mutabakat;Username=mutabakat;Password=local-demo-only
-      ConnectionStrings__Database: Host=localhost;Port=5432;Database=mutabakat;Username=mutabakat;Password=local-demo-only
+      RECON_TEST_DB: Host=localhost;Port=5432;Database=ledgermatch;Username=ledgermatch;Password=local-demo-only
+      ConnectionStrings__Database: Host=localhost;Port=5432;Database=ledgermatch;Username=ledgermatch;Password=local-demo-only
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-      - run: dotnet restore Mutabakat.slnx
-      - run: dotnet format Mutabakat.slnx --verify-no-changes --no-restore
-      - run: dotnet build Mutabakat.slnx -c Release --no-restore
-      - run: dotnet test Mutabakat.slnx -c Release --no-build --logger trx --results-directory TestResults
+      - run: dotnet restore LedgerMatch.slnx
+      - run: dotnet format LedgerMatch.slnx --verify-no-changes --no-restore
+      - run: dotnet build LedgerMatch.slnx -c Release --no-restore
+      - run: dotnet test LedgerMatch.slnx -c Release --no-build --logger trx --results-directory TestResults
       - name: Verify public HTTP demo
         shell: bash
         run: |
-          dotnet run --project src/Mutabakat.Api -c Release --no-build --urls http://127.0.0.1:5087 > /tmp/mutabakat-api.log 2>&1 &
+          dotnet run --project src/LedgerMatch.Api -c Release --no-build --urls http://127.0.0.1:5087 > /tmp/ledgermatch-api.log 2>&1 &
           api_pid=$!
           trap 'kill "$api_pid" 2>/dev/null || true' EXIT
           ready=false
@@ -42,7 +42,7 @@ jobs:
             if curl --fail --silent http://127.0.0.1:5087/health; then ready=true; break; fi
             sleep 1
           done
-          if [ "$ready" != true ]; then cat /tmp/mutabakat-api.log; exit 1; fi
+          if [ "$ready" != true ]; then cat /tmp/ledgermatch-api.log; exit 1; fi
           python3 scripts/demo.py
       - uses: actions/upload-artifact@v4
         if: always()

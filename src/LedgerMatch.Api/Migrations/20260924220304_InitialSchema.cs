@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Mutabakat.Api.Migrations
+namespace LedgerMatch.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialSchema : Migration

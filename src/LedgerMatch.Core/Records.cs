@@ -1,4 +1,4 @@
-namespace Mutabakat.Core;
+namespace LedgerMatch.Core;
 
 public sealed record PaymentRecord(string SourceRecordId, string Reference, string Currency, long AmountMinor);
 

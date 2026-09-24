@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic.FileIO;
 
-namespace Mutabakat.Api.Tests;
+namespace LedgerMatch.Api.Tests;
 
 public sealed class ReconciliationApiTests(PostgresApiFixture fixture) : IClassFixture<PostgresApiFixture>
 {

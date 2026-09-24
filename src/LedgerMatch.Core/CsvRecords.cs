@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Mutabakat.Core;
+namespace LedgerMatch.Core;
 
 public static class CsvRecords
 {

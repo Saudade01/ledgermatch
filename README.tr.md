@@ -21,7 +21,7 @@ python3 scripts/demo.py --base-url http://localhost:5087
 
 Demo, başlamadan önce API’nin hazır olmasını bekler (`/health`, en fazla 30 deneme). API portu `5087`, PostgreSQL portu `55439`. Compose içindeki parola yalnızca yerel demo içindir.
 
-Demo, [şirket kayıtlarını](samples/ledger.csv) JSON, [sağlayıcı kayıtlarını](samples/provider.csv) CSV olarak yükler. Sonuçları [beklenen çıktıyla](samples/expected.json) karşılaştırır; tekrar gönderim, aynı anahtarla farklı içerik, hatalı tutar, kaydedilmiş sonuç ve CSV dışa aktarımını kontrol eder. Bir kontrol başarısızsa sıfırdan farklı çıkış kodu döner. Aynı komut yeniden çalıştırılabilir; aynı kayıt ve mutabakat kimlikleri kullanılır. Ayrı veri seti için `--key-prefix baska-demo` eklenebilir.
+Demo, [şirket kayıtlarını](samples/ledger.csv) JSON, [sağlayıcı kayıtlarını](samples/provider.csv) CSV olarak yükler. Sonuçları [beklenen çıktıyla](samples/expected.json) karşılaştırır; tekrar gönderim, aynı anahtarla farklı içerik, hatalı tutar, kaydedilmiş sonuç ve CSV dışa aktarımını kontrol eder. Bir kontrol başarısızsa sıfırdan farklı çıkış kodu döner. Aynı komut yeniden çalıştırılabilir; aynı kayıt ve ledgermatch kimlikleri kullanılır. Ayrı veri seti için `--key-prefix baska-demo` eklenebilir.
 
 ## Örnek senaryolar
 
@@ -50,13 +50,13 @@ Veri setleri değiştirilemez. `Idempotency-Key` aynı içerikle tekrar kullanı
 .NET 10 SDK ile, veritabanına ihtiyaç duymayan çekirdek testleri:
 
 ```sh
-dotnet test tests/Mutabakat.Core.Tests
+dotnet test tests/LedgerMatch.Core.Tests
 ```
 
 API testleri çalışan PostgreSQL ve ayrı test veritabanı/şeması oluşturma yetkisi ister:
 
 ```sh
-RECON_TEST_DB='Host=localhost;Port=55439;Database=mutabakat;Username=mutabakat;Password=local-demo-only' dotnet test tests/Mutabakat.Api.Tests
+RECON_TEST_DB='Host=localhost;Port=55439;Database=ledgermatch;Username=ledgermatch;Password=local-demo-only' dotnet test tests/LedgerMatch.Api.Tests
 ```
 
 ## Sınırlar

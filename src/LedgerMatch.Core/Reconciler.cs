@@ -1,4 +1,4 @@
-namespace Mutabakat.Core;
+namespace LedgerMatch.Core;
 
 public sealed record MatchGroup(
     string Reference,

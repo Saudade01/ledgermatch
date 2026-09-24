@@ -2,10 +2,10 @@ using System.Security.Cryptography;
 using System.Text.Json;
 
 using Microsoft.EntityFrameworkCore;
-using Mutabakat.Core;
+using LedgerMatch.Core;
 using Npgsql;
 
-namespace Mutabakat.Api;
+namespace LedgerMatch.Api;
 
 public static class DatasetEndpoints
 {

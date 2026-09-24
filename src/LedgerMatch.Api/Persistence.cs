@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Mutabakat.Api;
+namespace LedgerMatch.Api;
 
 public sealed class ReconciliationDb(DbContextOptions<ReconciliationDb> options) : DbContext(options)
 {

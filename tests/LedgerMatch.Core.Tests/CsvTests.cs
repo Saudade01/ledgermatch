@@ -1,6 +1,6 @@
-using Mutabakat.Core;
+using LedgerMatch.Core;
 
-namespace Mutabakat.Core.Tests;
+namespace LedgerMatch.Core.Tests;
 
 public sealed class CsvTests
 {

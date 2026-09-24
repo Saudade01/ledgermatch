@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace Mutabakat.Api.Tests;
+namespace LedgerMatch.Api.Tests;
 
 public sealed class PostgresApiFixture : IAsyncLifetime
 {
-    private readonly string _databaseName = "mutabakat_test_" + Guid.NewGuid().ToString("N");
+    private readonly string _databaseName = "ledgermatch_test_" + Guid.NewGuid().ToString("N");
     private string? _adminConnection;
     private bool _created;
     public TestApiFactory Factory { get; private set; } = null!;

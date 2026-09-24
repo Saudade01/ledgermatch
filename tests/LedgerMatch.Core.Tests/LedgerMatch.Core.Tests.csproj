@@ -9,7 +9,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <ProjectReference Include="../../src/Mutabakat.Core/Mutabakat.Core.csproj" />
+    <ProjectReference Include="../../src/LedgerMatch.Core/LedgerMatch.Core.csproj" />
     <Using Include="Xunit" />
   </ItemGroup>
 </Project>
