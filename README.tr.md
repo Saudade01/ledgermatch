@@ -1,10 +1,16 @@
-# Mutabakat Servisi
+# LedgerMatch
 
-[![CI](https://github.com/Saudade01/mutabakat-servisi/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/mutabakat-servisi/actions/workflows/ci.yml)
+[![CI](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml)
 
 İki sistemin ödeme kayıtlarını karşılaştıran küçük bir .NET API. Örneğin şirket kaydındaki `INV-101` için tutar `12500` kuruş, ödeme sağlayıcısında `12400` kuruşsa iki kayıt korunur ve `amount_mismatch` sonucu üretilir.
 
 Sentetik verilerle geliştirilen yerel bir portföy prototipidir. Gerçek müşteride veya finans sisteminde doğrulanmadı. Banka/ERP bağlantısı ve yapay zekâ bileşeni yoktur. [English documentation](README.md).
+
+## Teknik olarak ne gösteriyor?
+
+Hatalı yüklemenin tamamını reddetme, eşzamanlı tekrar isteklerinde kayıt çoğaltmama ve rapordaki farkı kaynak kayıtlara kadar izleyebilme davranışlarını gösterir. Bu davranışlar PostgreSQL entegrasyon testleri ve tekrar çalıştırılabilen HTTP demosuyla kontrol edilir.
+
+Veri JSON veya CSV olarak alınır. Henüz canlı banka, ERP veya ödeme sağlayıcısı bağlantısı olmadığı için dış sağlayıcıyla uçtan uca entegrasyon deneyimini göstermez.
 
 ## Çalıştırma
 

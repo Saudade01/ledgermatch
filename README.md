@@ -1,10 +1,16 @@
-# Mutabakat Servisi
+# LedgerMatch
 
-[![CI](https://github.com/Saudade01/mutabakat-servisi/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/mutabakat-servisi/actions/workflows/ci.yml)
+[![CI](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml)
 
 A small .NET API that compares payment records from two systems and reports differences. A ledger might record `12500` kuruş for `INV-101`, while a provider records `12400`. This service keeps both records and reports `amount_mismatch`; it does not silently accept the difference.
 
 This is a local portfolio prototype using synthetic data. [Türkçe açıklama](README.tr.md).
+
+## Engineering focus
+
+The example exercises backend behavior at a data boundary: rejecting invalid imports atomically, handling concurrent retries without duplicate records, and keeping a report traceable to its source records. PostgreSQL integration tests cover these behaviors; the HTTP demo makes them reproducible.
+
+Inputs arrive through JSON or CSV. There is no live bank, ERP, or payment-provider connector yet, so this prototype does not demonstrate an end-to-end integration with an external provider.
 
 ## Run the example
 
