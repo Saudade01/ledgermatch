@@ -1,0 +1,175 @@
+{
+  "groups": [
+    {
+      "reference": "INV-100",
+      "currency": "TRY",
+      "status": "matched",
+      "left": [
+        {
+          "sourceRecordId": "L001",
+          "reference": "INV-100",
+          "currency": "TRY",
+          "amountMinor": 12500
+        }
+      ],
+      "right": [
+        {
+          "sourceRecordId": "R001",
+          "reference": "INV-100",
+          "currency": "TRY",
+          "amountMinor": 12500
+        }
+      ]
+    },
+    {
+      "reference": "INV-101",
+      "currency": "TRY",
+      "status": "amount_mismatch",
+      "left": [
+        {
+          "sourceRecordId": "L002",
+          "reference": "INV-101",
+          "currency": "TRY",
+          "amountMinor": 12500
+        }
+      ],
+      "right": [
+        {
+          "sourceRecordId": "R002",
+          "reference": "INV-101",
+          "currency": "TRY",
+          "amountMinor": 12400
+        }
+      ]
+    },
+    {
+      "reference": "INV-102",
+      "currency": "TRY",
+      "status": "missing_right",
+      "left": [
+        {
+          "sourceRecordId": "L003",
+          "reference": "INV-102",
+          "currency": "TRY",
+          "amountMinor": 4000
+        }
+      ],
+      "right": []
+    },
+    {
+      "reference": "INV-103",
+      "currency": "TRY",
+      "status": "missing_left",
+      "left": [],
+      "right": [
+        {
+          "sourceRecordId": "R003",
+          "reference": "INV-103",
+          "currency": "TRY",
+          "amountMinor": 2500
+        }
+      ]
+    },
+    {
+      "reference": "INV-104",
+      "currency": "TRY",
+      "status": "duplicate",
+      "left": [
+        {
+          "sourceRecordId": "L004",
+          "reference": "INV-104",
+          "currency": "TRY",
+          "amountMinor": 2000
+        },
+        {
+          "sourceRecordId": "L005",
+          "reference": "INV-104",
+          "currency": "TRY",
+          "amountMinor": 2000
+        }
+      ],
+      "right": [
+        {
+          "sourceRecordId": "R004",
+          "reference": "INV-104",
+          "currency": "TRY",
+          "amountMinor": 4000
+        }
+      ]
+    },
+    {
+      "reference": "INV-105",
+      "currency": "EUR",
+      "status": "matched",
+      "left": [
+        {
+          "sourceRecordId": "L006",
+          "reference": "INV-105",
+          "currency": "EUR",
+          "amountMinor": 9900
+        }
+      ],
+      "right": [
+        {
+          "sourceRecordId": "R005",
+          "reference": "INV-105",
+          "currency": "EUR",
+          "amountMinor": 9900
+        }
+      ]
+    },
+    {
+      "reference": "INV-106",
+      "currency": "EUR",
+      "status": "missing_left",
+      "left": [],
+      "right": [
+        {
+          "sourceRecordId": "R006",
+          "reference": "INV-106",
+          "currency": "EUR",
+          "amountMinor": 1000
+        }
+      ]
+    },
+    {
+      "reference": "INV-106",
+      "currency": "TRY",
+      "status": "missing_right",
+      "left": [
+        {
+          "sourceRecordId": "L007",
+          "reference": "INV-106",
+          "currency": "TRY",
+          "amountMinor": 1000
+        }
+      ],
+      "right": []
+    }
+  ],
+  "summary": {
+    "groupsByStatus": {
+      "matched": 2,
+      "amount_mismatch": 1,
+      "missing_right": 2,
+      "missing_left": 2,
+      "duplicate": 1
+    },
+    "leftRecordCount": 7,
+    "rightRecordCount": 6,
+    "totalsByCurrency": [
+      {
+        "currency": "EUR",
+        "leftAmountMinor": 9900,
+        "rightAmountMinor": 10900,
+        "differenceMinor": -1000
+      },
+      {
+        "currency": "TRY",
+        "leftAmountMinor": 34000,
+        "rightAmountMinor": 31400,
+        "differenceMinor": 2600
+      }
+    ]
+  }
+}

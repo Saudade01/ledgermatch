@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+**/TestResults/
+.env
+*.user
+*.log
+__pycache__/

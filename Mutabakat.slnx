@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mutabakat.Api/Mutabakat.Api.csproj" />
+    <Project Path="src/Mutabakat.Core/Mutabakat.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mutabakat.Api.Tests/Mutabakat.Api.Tests.csproj" />
+    <Project Path="tests/Mutabakat.Core.Tests/Mutabakat.Core.Tests.csproj" />
+  </Folder>
+</Solution>
