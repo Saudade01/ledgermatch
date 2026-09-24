@@ -2,15 +2,13 @@
 
 [![CI](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml)
 
-İki sistemin ödeme kayıtlarını karşılaştıran küçük bir .NET API. Örneğin şirket kaydındaki `INV-101` için tutar `12500` kuruş, ödeme sağlayıcısında `12400` kuruşsa iki kayıt korunur ve `amount_mismatch` sonucu üretilir.
+İki sistemdeki ödeme kayıtlarını karşılaştırır; eksik ödemeleri, tutar farklarını ve tekrar eden referansları bulur.
 
-Sentetik verilerle geliştirilen yerel bir portföy prototipidir. Gerçek müşteride veya finans sisteminde doğrulanmadı. Banka/ERP bağlantısı ve yapay zekâ bileşeni yoktur. [English documentation](README.md).
+Örneğin şirket kaydında `INV-101` için 125 TL, ödeme sağlayıcısının kaydında 124 TL görünüyor. LedgerMatch bu farkı rapora çıkarır ve iki kaydı da saklar. Aynı referans iki kez geçiyorsa hangisinin doğru olduğuna karar vermek yerine grubu tekrar eden kayıt olarak işaretler.
 
-## Teknik olarak ne gösteriyor?
+C#, ASP.NET Core, EF Core ve PostgreSQL kullanır. Veriler CSV dosyası veya JSON isteğiyle yüklenir; rapor JSON ya da CSV olarak alınır.
 
-Hatalı yüklemenin tamamını reddetme, eşzamanlı tekrar isteklerinde kayıt çoğaltmama ve rapordaki farkı kaynak kayıtlara kadar izleyebilme davranışlarını gösterir. Bu davranışlar PostgreSQL entegrasyon testleri ve tekrar çalıştırılabilen HTTP demosuyla kontrol edilir.
-
-Veri JSON veya CSV olarak alınır. Henüz canlı banka, ERP veya ödeme sağlayıcısı bağlantısı olmadığı için dış sağlayıcıyla uçtan uca entegrasyon deneyimini göstermez.
+Örnek veriler kurmacadır. Henüz canlı banka veya ödeme sağlayıcısı bağlantısı yoktur. [English](README.md)
 
 ## Çalıştırma
 
@@ -21,7 +19,7 @@ docker compose up --build -d
 python3 scripts/demo.py --base-url http://localhost:5087
 ```
 
-Demoyu çalıştırmadan önce `http://localhost:5087/health` adresinin HTTP 200 dönmesini bekleyin. API portu `5087`, PostgreSQL portu `55439`. Compose içindeki parola yalnızca yerel demo içindir.
+Demo, başlamadan önce API’nin hazır olmasını bekler (`/health`, en fazla 30 deneme). API portu `5087`, PostgreSQL portu `55439`. Compose içindeki parola yalnızca yerel demo içindir.
 
 Demo, [şirket kayıtlarını](samples/ledger.csv) JSON, [sağlayıcı kayıtlarını](samples/provider.csv) CSV olarak yükler. Sonuçları [beklenen çıktıyla](samples/expected.json) karşılaştırır; tekrar gönderim, aynı anahtarla farklı içerik, hatalı tutar, kaydedilmiş sonuç ve CSV dışa aktarımını kontrol eder. Bir kontrol başarısızsa sıfırdan farklı çıkış kodu döner. Aynı komut yeniden çalıştırılabilir; aynı kayıt ve mutabakat kimlikleri kullanılır. Ayrı veri seti için `--key-prefix baska-demo` eklenebilir.
 
@@ -37,7 +35,7 @@ Demo, [şirket kayıtlarını](samples/ledger.csv) JSON, [sağlayıcı kayıtlar
 | INV-105 | Eşit EUR tutarları eşleşir |
 | INV-106 | TRY ve EUR kayıtları iki ayrı eksik grup oluşturur |
 
-Örnekte 7 şirket kaydı, 6 sağlayıcı kaydı ve 8 sonuç grubu bulunur. Toplamlar para birimi bazında tutulur; fark sol eksi sağdır. Bunlar beklenen sonucu bilinen örneklerdir; üretim ortamı başarı ölçümü değildir.
+Örnekte 7 şirket kaydı, 6 sağlayıcı kaydı ve 8 sonuç grubu bulunur. Toplamlar para birimi bazında tutulur; fark sol eksi sağdır.
 
 ## Kurallar
 

@@ -2,15 +2,13 @@
 
 [![CI](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml/badge.svg)](https://github.com/Saudade01/ledgermatch/actions/workflows/ci.yml)
 
-A small .NET API that compares payment records from two systems and reports differences. A ledger might record `12500` kuruş for `INV-101`, while a provider records `12400`. This service keeps both records and reports `amount_mismatch`; it does not silently accept the difference.
+Compare two sets of payment records and find what does not line up: missing payments, different amounts, or repeated references.
 
-This is a local portfolio prototype using synthetic data. [Türkçe açıklama](README.tr.md).
+For example, the ledger records TRY 125.00 for `INV-101`, but the payment provider records TRY 124.00. LedgerMatch flags the difference and keeps both records in the report. If a reference appears twice, it leaves the group marked as a duplicate rather than guessing which record is correct.
 
-## Engineering focus
+Written in C# with ASP.NET Core, EF Core, and PostgreSQL. Inputs are CSV files or JSON requests; reports are available as JSON and CSV.
 
-The example exercises backend behavior at a data boundary: rejecting invalid imports atomically, handling concurrent retries without duplicate records, and keeping a report traceable to its source records. PostgreSQL integration tests cover these behaviors; the HTTP demo makes them reproducible.
-
-Inputs arrive through JSON or CSV. There is no live bank, ERP, or payment-provider connector yet, so this prototype does not demonstrate an end-to-end integration with an external provider.
+The included data is made up. There is no live bank or payment-provider connection yet. [Türkçe](README.tr.md)
 
 ## Run the example
 
@@ -37,7 +35,7 @@ The script loads [ledger.csv](samples/ledger.csv) through JSON and [provider.csv
 | INV-105 | Equal EUR amounts: matched |
 | INV-106 | TRY on the left, EUR on the right: two separate missing groups |
 
-There are 7 ledger records, 6 provider records and 8 result groups. Totals stay separate by currency; the difference is left minus right. These are fixture checks, not measurements from a production system.
+There are 7 ledger records, 6 provider records and 8 result groups. Totals stay separate by currency; the difference is left minus right.
 
 ## API
 
@@ -70,14 +68,16 @@ API tests require the running local PostgreSQL instance and permission to create
 RECON_TEST_DB='Host=localhost;Port=55439;Database=mutabakat;Username=mutabakat;Password=local-demo-only' dotnet test tests/Mutabakat.Api.Tests
 ```
 
-## Scope and decisions
+## Limits
 
 ASP.NET Core exposes the API; PostgreSQL and EF Core store immutable imports and comparisons. Matching logic is separate from HTTP and storage. [Design decisions](docs/decisions.md) explain reference matching, retries and duplicate handling.
 
 No authentication or authorization is implemented. Run locally, not as a public service. The first version does not handle refunds, fees, currency conversion, partial payments, split transfers, settlement timing or manual resolution. A match means only that the supplied reference, currency and amount agree; it is not proof that a payment settled. Imports are limited to 10,000 records and 2 MiB per request.
 
-## Try a change
+## Changing the sample
 
-Start with `INV-101` in `samples/provider.csv`: change its amount from `12400` to `12500`. Import with a new key prefix. Its expected status changes from `amount_mismatch` to `matched`, so the current demo expectation should fail until you deliberately update it. This is a small way to trace input → rule → stored report → test without adding a feature.
+Start with `INV-101` in `samples/provider.csv`: change its amount from `12400` to `12500`. Import with a new key prefix. Its expected status changes from `amount_mismatch` to `matched`, so the current demo expectation should fail until you deliberately update it. The expected output is checked into the repository so changes to the matching rules are visible.
 
-For local development, start only the database with `docker compose up -d db`, set `ConnectionStrings__Database` to the same local connection shown above, and run `dotnet run --project src/Mutabakat.Api --urls http://localhost:5087` (stop the Compose API first if it is running). Database migrations run on startup. To add a schema change, use `dotnet tool restore` and `dotnet ef migrations add <Name> --project src/Mutabakat.Api`.
+## Local development
+
+Start only the database with `docker compose up -d db`, set `ConnectionStrings__Database` to the same local connection shown above, and run `dotnet run --project src/Mutabakat.Api --urls http://localhost:5087` (stop the Compose API first if it is running). Database migrations run on startup. To add a schema change, use `dotnet tool restore` and `dotnet ef migrations add <Name> --project src/Mutabakat.Api`.
